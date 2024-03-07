@@ -1,8 +1,8 @@
-###  DATE: 
+###  DATE: 05-02-2024
 
-###  NAME: 
-###  ROLL NO :
-###  DEPARTMENT: 
+###  NAME: GOGINENI BIDHISHA
+###  ROLL NO :212223040048
+###  DEPARTMENT: CSE
 
 
 # EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR
@@ -119,14 +119,48 @@ The diagram below shows how the GPIO pins are connected to the 16 interrupt line
 
 ## STM 32 CUBE PROGRAM :
 
+#include "main.h"
+#include "stdio.h"
 
+#if defined (_ICCARM) || defined (_ARMCC_VERSION)
+#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#elif defined(GNUC)
+
+#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#endif
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_4)==0)
+	{
+		printf("obstacle found\n");
+		HAL_Delay(500);
+	}
+	else
+	{
+		printf("obstacle not found\n");
+		HAL_Delay(500);
+	}
+}
+
+PUTCHAR_PROTOTYPE
+{
+
+  HAL_UART_Transmit(&huart2, (uint8_t *)&ch, 1, 0xFFFF);
+
+  return ch;
+}
 
 ## Output screen shots of serial port utility   :
- 
+ ![Screenshot 2024-03-07 215143](https://github.com/vasanthkumarch/EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR/assets/152273292/b62b8ab3-20a1-4555-9109-86e5580822f5)
+![Screenshot 2024-03-07 215212](https://github.com/vasanthkumarch/EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR/assets/152273292/2db06547-a258-4cb9-8a60-4538dfea5780)
+
  
  ## Circuit board :
- 
- 
+ ![Screenshot 2024-03-07 214817](https://github.com/vasanthkumarch/EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR/assets/152273292/675f30d7-8c1d-4324-9242-9f868c60b79d)
+
+ ![Screenshot 2024-03-07 214836](https://github.com/vasanthkumarch/EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR/assets/152273292/188bbb4d-b1e0-4f33-b208-c40f4ceeb1b6)
+
  
 ## Result :
 Interfacing a  IR SENSOR and interrupt is generated using external interrupt mode , visualized on serial port 
